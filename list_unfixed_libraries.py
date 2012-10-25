@@ -33,12 +33,18 @@ if __name__ == '__main__':
   parser.add_option("--verbose",
                     dest="verbose", action="store_true",
                     help="Print verbose information")
+  parser.add_option("--extra-verbose",
+                    dest="extra_verbose", action="store_true",
+                    help="Print extra verbose information")
 
   (options, args) = parser.parse_args()
 
   requiredArgumentErrorMessage = "argument '%s' is required !"
   if not options.library_directory:
     parser.error(requiredArgumentErrorMessage % '--library-directory')
+
+  if options.extra_verbose: 
+    options.verbose = True
 
   all_project_files = []
   match_patterns = options.match_patterns.split(" ")
@@ -48,13 +54,26 @@ if __name__ == '__main__':
     if options.verbose:
       print "Found %s files walking [%s] using [%s] pattern" % (len(project_files), options.library_directory, match_pattern)
 
-
-  print "Unfixed libraries:"
+  unfixed_libraries = []
 
   for filepath in all_project_files:
-    if options.verbose:
-      print "Analyzing %s" % (filepath)
     deps = get_dependencies(filepath)
     fixed_up = has_at_executable(deps)
     if not fixed_up:
-      print " %s" % (filepath)
+      unfixed_libraries.append(filepath)
+    if options.extra_verbose: 
+      print "Analyzing %s" % (filepath)
+      if fixed_up:
+        print "\t[OK]"
+      else:
+        print "\t[FAILED]"
+
+  print "\nAnalysis summary"
+  print "\tTotal: %s libraries" % (len(all_project_files))
+  print "\tUnfixed: %s libraries" % (len(unfixed_libraries))
+  
+  if options.verbose: 
+    print "\nList of unfixed libraries"
+    for filepath in unfixed_libraries:
+      print "\t%s" % filepath
+
