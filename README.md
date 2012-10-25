@@ -4,7 +4,7 @@ Library Fixup Tools
 Overview
 --------
 
-Think of `library-fixup-tools` as a collection of scripts allowing to diagnostic issue related to MacOSX
+Think of `library-fixup-tools` as a collection of scripts allowing to diagnostic issues related to MacOSX
 packaging.
 
 Usage
@@ -36,7 +36,32 @@ Note also that passing the `--verbose` option will provide you with more details
      ./_CPack_Packages/macosx-amd64/DragNDrop/Slicer-4.2.0-rc1-2012-10-24-macosx-amd64/Slicer.app/Contents/lib/TclTk/lib/libtcl8.4.dylib
      ./_CPack_Packages/macosx-amd64/DragNDrop/Slicer-4.2.0-rc1-2012-10-24-macosx-amd64/Slicer.app/Contents/lib/TclTk/lib/libtk8.4.dylib
 
-The option `--extra-verbose`
+The option `--extra-verbose` will provide you with even more details:
+
+    $ ~/Dashboards/list_unfixed_libraries.py --library-directory ./_CPack_Packages/macosx-amd64/DragNDrop/Slicer-4.2.0-rc1-2012-10-24-macosx-amd64/Slicer.app/Contents/lib/TclTk/ --extra-verbose
+    Found 0 files walking [./_CPack_Packages/macosx-amd64/DragNDrop/Slicer-4.2.0-rc1-2012-10-24-macosx-amd64/Slicer.app/Contents/lib/TclTk/] using [*.so] pattern
+    Found 6 files walking [./_CPack_Packages/macosx-amd64/DragNDrop/Slicer-4.2.0-rc1-2012-10-24-macosx-amd64/Slicer.app/Contents/lib/TclTk/] using [*.dylib] pattern
+    Analyzing ./_CPack_Packages/macosx-amd64/DragNDrop/Slicer-4.2.0-rc1-2012-10-24-macosx-amd64/Slicer.app/Contents/lib/TclTk/libtcl8.4.dylib
+     [OK]
+    Analyzing ./_CPack_Packages/macosx-amd64/DragNDrop/Slicer-4.2.0-rc1-2012-10-24-macosx-amd64/Slicer.app/Contents/lib/TclTk/libtk8.4.dylib
+     [OK]
+    Analyzing ./_CPack_Packages/macosx-amd64/DragNDrop/Slicer-4.2.0-rc1-2012-10-24-macosx-amd64/Slicer.app/Contents/lib/TclTk/lib/libitcl3.2.dylib
+     [OK]
+    Analyzing ./_CPack_Packages/macosx-amd64/DragNDrop/Slicer-4.2.0-rc1-2012-10-24-macosx-amd64/Slicer.app/Contents/lib/TclTk/lib/libitk3.2.dylib
+     [OK]
+    Analyzing ./_CPack_Packages/macosx-amd64/DragNDrop/Slicer-4.2.0-rc1-2012-10-24-macosx-amd64/Slicer.app/Contents/lib/TclTk/lib/libtcl8.4.dylib
+     [FAILED]
+    Analyzing ./_CPack_Packages/macosx-amd64/DragNDrop/Slicer-4.2.0-rc1-2012-10-24-macosx-amd64/Slicer.app/Contents/lib/TclTk/lib/libtk8.4.dylib
+     [FAILED]
+
+    Analysis summary
+     Total: 6 libraries
+     Unfixed: 2 libraries
+
+    List of unfixed libraries
+     ./_CPack_Packages/macosx-amd64/DragNDrop/Slicer-4.2.0-rc1-2012-10-24-macosx-amd64/Slicer.app/Contents/lib/TclTk/lib/libtcl8.4.dylib
+     ./_CPack_Packages/macosx-amd64/DragNDrop/Slicer-4.2.0-rc1-2012-10-24-macosx-amd64/Slicer.app/Contents/lib/TclTk/lib/libtk8.4.dylib
+
 
 Installation
 ------------
